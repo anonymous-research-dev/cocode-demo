@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+<section class="hero is-primary u-header">
+    <div class="hero-head">
+        {% include header.html %}
+    </div>
+</section>
+<section id="exercise-show" class="u-header-padded">
+    <div class="u-headered-full-screen">
+        <div class="u-flex-h-container">
+            <div class="u-flex-fill-item">
+                <div class="u-fill">
+                    <exercise ref="exercise" :course="course" :material="material" :next-material="nextMaterial"
+                        :material-accessible-map="materialAccessibleMap" :exp-mode="expMode" :content="content">
+                    </exercise>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include course.html %}
+{% include snaps.html %}
+<script>
+    new Vue({
+        el: '#exercise-show',
+        data: {
+            course: window.COCODE_DEMO.course,
+            materialStatesMap: window.COCODE_DEMO.materialState,
+            materialAccessibleMap: window.COCODE_DEMO.materialAccessible,
+            material: window.COCODE_DEMO.material,
+            nextMaterial: null,
+            expMode: { 
+                anonymizeSnaps: true, 
+                hideSnapMessages: true,
+                userSnaps: window.COCODE_DEMO.snaps.data.user_snaps_dict, 
+                serverless: true, 
+                initCode: window.COCODE_DEMO.code,
+                grader: window.COCODE_DEMO.grader,
+            },
+            content: window.COCODE_DEMO.content,
+        },
+        mounted: function() {
+            this.$refs.exercise.setShowSnaps(true);
+        },
+    });
+</script>
